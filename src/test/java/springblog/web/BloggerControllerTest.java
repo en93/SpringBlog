@@ -27,4 +27,10 @@ public class BloggerControllerTest {
 		mockMvc.perform(get("/blogger/register"))
 			.andExpect(view().name("registerForm"));		
 	}
+
+	@Test
+	public void shouldProcessRegistration() throws Exception{
+		PostRepository mockRepo = mock(PostRepository.class);
+
+	}
 }
