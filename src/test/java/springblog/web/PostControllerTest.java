@@ -26,9 +26,24 @@ public class PostControllerTest {
 		when(mockRepository.findPosts(Long.MAX_VALUE, 20)).thenReturn(expectedPosts);
 		PostController controller = new PostController(mockRepository);
 		MockMvc mockMvc = standaloneSetup(controller)
-			.setSingleView(new InternalResourceView("/WEB-INF/views/posts.jsp"))
+			.setSingleView(new InternalResourceView("WEB-INF/views/posts.jsp"))
 			.build();
 		mockMvc.perform(get("/posts"))
+			.andExpect(view().name("posts"))
+			.andExpect(model().attributeExists("postList"))
+			.andExpect(model().attribute("postList", hasItems(expectedPosts.toArray())));		
+	}
+	
+	@Test
+	public void shouldShowPagedPosts() throws Exception{
+		List<Post> expectedPosts = createPostList(50);
+		PostRepository mockRepository = mock(PostRepository.class);
+		when(mockRepository.findPosts(238900, 50)).thenReturn(expectedPosts);
+		PostController controller = new PostController(mockRepository);
+		MockMvc mockMvc = standaloneSetup(controller)
+			.setSingleView(new InternalResourceView("WEB-INF/views/posts.jsp"))
+			.build();
+		mockMvc.perform(get("/posts?max=238900&count=50"))
 			.andExpect(view().name("posts"))
 			.andExpect(model().attributeExists("postList"))
 			.andExpect(model().attribute("postList", hasItems(expectedPosts.toArray())));

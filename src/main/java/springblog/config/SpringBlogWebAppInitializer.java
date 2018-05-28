@@ -1,7 +1,9 @@
 package springblog.config;
 
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+//@ComponentScan("springblog.controller")
 public class SpringBlogWebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer{
 
 	@Override

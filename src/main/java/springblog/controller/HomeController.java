@@ -11,6 +11,7 @@ public class HomeController {
 	
 	@RequestMapping(method=GET)
 	public String home() {
+		System.out.println("LOG: Going home");
 		return "home";
 	}
 }
