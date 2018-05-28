@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/Blogger")
+@RequestMapping("/blogger")
 public class BloggerController {
 	
 	@RequestMapping(value="register", method=RequestMethod.GET)
