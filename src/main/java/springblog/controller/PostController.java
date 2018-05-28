@@ -9,16 +9,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import springblog.Post;
 import springblog.data.PostRepository;
 import springblog.data.TempRepo;
+
 
 @Controller
 @RequestMapping("/posts")
 public class PostController {
 	
 	private PostRepository postRepo;
+	private static final String MAX_LONG_AS_STRING = "" + Long.MAX_VALUE;
 	
 	@Autowired
 	public PostController(PostRepository postRepo) {		
@@ -26,8 +29,10 @@ public class PostController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public String posts(Model model) {
-		model.addAttribute("postList", postRepo.findPosts(Long.MAX_VALUE, 20));
-		return "posts";
+	public String posts(Model model, 			
+			@RequestParam(value="max", defaultValue=MAX_LONG_AS_STRING) long max,
+			@RequestParam(value="count", defaultValue="20") int count){
+		model.addAttribute("postList", postRepo.findPosts(max, count));
+		return "posts";		
 	}
 }
